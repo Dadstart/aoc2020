@@ -1,2 +1,4 @@
-# aoc2020
+# AOC2020
 Advent of Code 2020
+
+Quick and dirty solutions.
