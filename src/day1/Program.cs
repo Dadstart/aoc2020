@@ -42,15 +42,40 @@ namespace day1
 				}
 			}
 
+			// part 1
 			int entry1 = 0;
 			int entry2 = 0;
 			bool found = false;
 
+			(found, entry1, entry2) = FindSum(inputList, 0, 2020);
+			if (found)
+				Console.WriteLine($"{entry1} x {entry2} = {entry1 * entry2}");
+
+			// part 2
+			int entry0 = 0;
 			for (int i = 0; i < inputList.Count; i++)
+			{
+				entry0 = inputList[i];
+				(found, entry1, entry2) = FindSum(inputList, i + 1, 2020 - entry0);
+				if (found)
+					break;
+			}
+
+			if (found)
+				Console.WriteLine($"{entry0} x {entry1} x {entry2} = {entry0 * entry1 * entry2}");
+		}
+
+		static (bool found, int entry1, int entry2) FindSum(List<int> inputList, int start, int sum)
+		{
+			int entry1 = 0;
+			int entry2 = 0;
+			bool found = false;
+
+			for (int i = start; i < inputList.Count; i++)
 			{
 				for (int j = i + 1; j < inputList.Count; j++)
 				{
-					if (inputList[i] + inputList[j] == 2020)
+					if (inputList[i] + inputList[j] == sum)
 					{
 						entry1 = inputList[i];
 						entry2 = inputList[j];
@@ -63,7 +88,7 @@ namespace day1
 				}
 			}
 
-			Console.WriteLine($"{entry1} x {entry2} = {entry1 * entry2}");
+			return (found, entry1, entry2);
 		}
 	}
 }
