@@ -38,6 +38,39 @@ namespace day2
 			}
 
 			Console.WriteLine($"Valid: {valid}; Invalid: {invalid}");
+
+			// part 2
+			valid = 0;
+			invalid = 0;
+			//const string inputFile = @"..\..\..\sample-input.txt";
+			const string inputFile = @"..\..\..\input.txt";
+			using (var reader = new StreamReader(inputFile))
+			{
+				while (!reader.EndOfStream)
+				{
+					// no input sanitization; but that's okay here
+					var line = reader.ReadLine();
+
+					int hyphen = line.IndexOf('-');
+					var first = int.Parse(line.Substring(0, hyphen));
+
+					int space = line.IndexOf(' ', hyphen + 1);
+					var second = int.Parse(line.Substring(hyphen + 1, space - hyphen - 1));
+
+					var letter = line[space + 1];
+
+					var password = line.Substring(space + 4);
+
+					if (password[first - 1] == password[second - 1])
+						invalid++;
+					else if ((password[first - 1] == letter) || (password[second - 1] == letter))
+						valid++;
+					else
+						invalid++;
+				}
+			}
+
+			Console.WriteLine($"Valid: {valid}; Invalid: {invalid}");
 		}
 	}
 }
