@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace day5
@@ -14,6 +15,7 @@ namespace day5
 			TestGetSeat("BBFFBBFRLL", 102, 4, 820);
 
 			var highestSeat = 0;
+			var seats = new List<int>();
 			using (var reader = new StreamReader(@"..\..\..\input.txt"))
 			{
 				while (!reader.EndOfStream)
@@ -22,13 +24,25 @@ namespace day5
 					if (line.Length == 0)
 						continue;
 
-					var seat = GetSeat(reader.ReadLine());
+					var seat = GetSeat(line);
 					if (seat.id > highestSeat)
 						highestSeat = seat.id;
+
+					seats.Add(seat.id);
 				}
 			}
 
 			Console.WriteLine($"Highest seat id: {highestSeat}");
+
+			// day 2
+			seats.Sort();
+			int missingSeat = -1;
+			for (int i = 1; i < seats.Count - 1; i++)
+			{
+				if (seats[i - 1] != seats[i] - 1)
+					missingSeat = seats[i] - 1;
+			}
+			Console.WriteLine($"Assigned seat id: {missingSeat}");
 		}
 
 		static void TestGetSeat(string input, int row, int col, int id)
