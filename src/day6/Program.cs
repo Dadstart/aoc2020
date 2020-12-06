@@ -48,6 +48,27 @@ namespace day6
 			}
 
 			Console.WriteLine($"Sum {sum}");
+
+			// part 2
+			sum = 0;
+			foreach (var group in groups)
+			{
+				IEnumerable<char> groupAnswers = null;
+				foreach (var entry in group)
+				{
+					if (groupAnswers == null)
+					{
+						groupAnswers = entry;
+					}
+					else
+					{
+						groupAnswers = groupAnswers.Intersect(entry);
+					}
+				}
+
+				sum += groupAnswers.Count();
+			}
+			Console.WriteLine($"Sum {sum}");
 		}
 	}
 }
