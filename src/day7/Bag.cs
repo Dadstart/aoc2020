@@ -19,7 +19,16 @@ namespace day7
 
 		public bool HasInnerBag(string name)
 		{
-			return InnerBags.FirstOrDefault(b => b.Name == name) != null;
+			return GetInnerBagCount(name) > 0;
+		}
+
+		public int GetInnerBagCount(string name)
+		{
+			var innerBag = InnerBags.FirstOrDefault(b => b.Name == name);
+			if (innerBag == null)
+				return 0;
+			else
+				return innerBag.Count;
 		}
 	}
 }

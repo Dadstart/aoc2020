@@ -52,8 +52,25 @@ namespace day7
 				}
 			}
 
-			var allGoldContainingBags = FindBagsContaining(bags.Values, bags["shiny gold"]);
+			var shinyGoldBag = bags["shiny gold"];
+			var allGoldContainingBags = FindBagsContaining(bags.Values, shinyGoldBag);
 			Console.WriteLine($"{allGoldContainingBags.Count} bags can eventually contain shiny gold");
+
+			var totalCount = GetInnerBagsCount(bags, shinyGoldBag);
+			Console.WriteLine($"{totalCount} bags required for shiny gold");
+		}
+
+		static int GetInnerBagsCount(Dictionary<string, Bag> allBags, Bag bag)
+		{
+			int count = 0;
+			foreach (var innerBag in bag.InnerBags)
+			{
+				count += innerBag.Count;
+				var innerInnerCount = GetInnerBagsCount(allBags, allBags[innerBag.Name]);
+				count += innerBag.Count * innerInnerCount;				
+			}
+
+			return count;
 		}
 
 		static HashSet<Bag> FindBagsContaining(IEnumerable<Bag> allBags, Bag bag)
