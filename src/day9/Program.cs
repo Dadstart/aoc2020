@@ -52,6 +52,38 @@ namespace day9
 			}
 
 			Console.WriteLine($"First invalid number is {invalidNum}");
+
+			// part 2
+			int first = 0;
+			int last = 0;
+			ulong sum = nums[first];
+			while (last + 1 < nums.Count)
+			{
+				sum += nums[++last];
+
+				if (sum == invalidNum)
+					break;
+
+				if (sum > invalidNum)
+				{
+					sum -= nums[first];
+					first++;
+
+					if (sum == invalidNum)
+						break;
+				}
+			}
+
+			ulong min = ulong.MaxValue;
+			ulong max = ulong.MinValue;
+			for (int i = first; i <= last; i++)
+			{
+				min = Math.Min(min, nums[i]);
+				max = Math.Max(max, nums[i]);
+			}
+
+			Console.WriteLine($"Range from {nums[first]} to {nums[last]}");
+			Console.WriteLine($"Min {min}; Max {max}; Sum {min+max}");
 		}
 	}
 }
