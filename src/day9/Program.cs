@@ -64,7 +64,7 @@ namespace day9
 				if (sum == invalidNum)
 					break;
 
-				if (sum > invalidNum)
+				while ((sum > invalidNum) && (first != last - 1))
 				{
 					sum -= nums[first];
 					first++;
@@ -72,6 +72,9 @@ namespace day9
 					if (sum == invalidNum)
 						break;
 				}
+
+				if (sum == invalidNum)
+					break;
 			}
 
 			ulong min = ulong.MaxValue;
