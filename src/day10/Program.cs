@@ -10,8 +10,8 @@ namespace day10
 		{
 			// part 1
 			var adapters = new List<int>();
-			//const string inputFile = @"..\..\..\sample-input2.txt";
-			const string inputFile = @"..\..\..\input.txt";
+			const string inputFile = @"..\..\..\sample-input2.txt";
+			//const string inputFile = @"..\..\..\input.txt";
 			using (var reader = new StreamReader(inputFile))
 			{
 				while (!reader.EndOfStream)
@@ -41,6 +41,20 @@ namespace day10
 
 			Console.WriteLine($"1-volt diffs: {voltDiffs[1]}; 3-volt diffs: {voltDiffs[3]}");
 			Console.WriteLine($"Product is {voltDiffs[1] * voltDiffs[3]}");
+
+			// part 2
+			var count = 0;
+			var counts = new int[adapters.Count];
+			for (int i = 1; i < adapters.Count - 2; i++)
+			{
+				if (adapters[i + 1] - adapters[i - 1] <= 3)
+					count++;
+
+				if (adapters[i + 2] - adapters[i - 1] <= 3)
+					count++;
+			}
+
+			Console.WriteLine($"Possibilities: {Math.Pow(2, count - 1)}");
 		}
 	}
 }
